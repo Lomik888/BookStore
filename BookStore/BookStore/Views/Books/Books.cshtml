@@ -1,0 +1,38 @@
+﻿@model List<BookViewModel>
+
+@{
+    ViewData["Title"] = "Find Book by Id";
+}
+
+<h2>Find Book by Id</h2>
+
+<form asp-controller="Books" asp-action="GetBooks" method="get">
+    <label for="idPage">Page:</label>
+    <input type="number" id="idPage" name="page" value="@(ViewData["Page"] ?? 1)" required/>
+    <label for="idPageSize">Page size:</label>
+    <input type="number" id="idPageSize" name="pageSize" value="@(ViewData["PageSize"] ?? 10)" required/>
+    <button type="submit">Find Books</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red">@ViewBag.Error</p>
+}
+else if (Model != null && Model.Any())
+{
+    foreach (var book in Model)
+    {
+        <div>
+            <h3>Book Details:</h3>
+            <p>
+                <strong>Title:</strong> @book.Title
+            </p>
+            <p>
+                <strong>Author:</strong> @book.Author
+            </p>
+            <p>
+                <strong>Published Year:</strong> @book.PublishedYear
+            </p>
+        </div>
+    }
+}
