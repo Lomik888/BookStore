@@ -1,0 +1,34 @@
+﻿services:
+  db:
+    container_name: mssql_express
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - "ACCEPT_EULA=Y"
+      - "MSSQL_SA_PASSWORD=Root!1234"
+      - "MSSQL_PID=Express"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-server:/var/opt/mssql
+  sql-pad:
+    image: sqlpad/sqlpad:latest
+    container_name: sqlpad
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - SQLPAD_ADMIN=admin
+      - SQLPAD_ADMIN_PASSWORD=admin
+    depends_on:
+      - db
+
+  bookstore:
+    image: bookstore
+    build:
+      context: .
+      dockerfile: BookStore/Dockerfile
+    depends_on:
+      - db
+
+volumes:
+  sql-server:
