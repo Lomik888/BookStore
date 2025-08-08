@@ -6,15 +6,21 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
+        <None Update="Migrations\**\*">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="System.Data.SqlClient" Version="4.9.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
     </ItemGroup>
 
 </Project>

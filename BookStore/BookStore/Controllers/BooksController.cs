@@ -34,7 +34,7 @@ public class BooksController : Controller
     {
         ViewData["Page"] = page;
         ViewData["PageSize"] = pageSize;
-        
+
         var books = await GetBooksAsync(page, pageSize);
         if (books == null)
             return NotFound();
@@ -48,7 +48,7 @@ public class BooksController : Controller
 
         await using var conn =
             new SqlConnection(
-                "Server=localhost,1433;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;");
+                "Server=db;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;");
         await conn.OpenAsync();
 
         await using var cmd = new SqlCommand("get_pagination_books", conn)
@@ -80,7 +80,7 @@ public class BooksController : Controller
     {
         await using var conn =
             new SqlConnection(
-                "Server=localhost,1433;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;");
+                "Server=db;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;");
         await conn.OpenAsync();
 
         await using var cmd = new SqlCommand("get_book", conn)

@@ -10,10 +10,9 @@ public class MigrationsRunner
     private const string CREATE_MIGRATION_TABLE = "create_migrations_table.sql";
 
     private readonly string _connectionString =
-        "Server=localhost,1433;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;";
+        "Server=db;Database=master;User Id=sa;Password=Root!1234;TrustServerCertificate=True;";
 
-    private readonly string _migrationsPath =
-        "C:\\Users\\solov\\OneDrive\\Рабочий стол\\BookStore\\BookStore\\BookStore\\Migrations";
+    private readonly string _migrationsPath = Path.Combine(AppContext.BaseDirectory, "Migrations");
 
     public MigrationsRunner(IConfiguration configuration)
     {

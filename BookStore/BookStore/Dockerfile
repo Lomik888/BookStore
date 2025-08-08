@@ -20,4 +20,5 @@ RUN dotnet publish "BookStore.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY BookStore/Migrations ./Migrations
 ENTRYPOINT ["dotnet", "BookStore.dll"]
