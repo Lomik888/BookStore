@@ -1,15 +1,19 @@
+using BookStore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<MigrationsRunner>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+await using var scope = app.Services.CreateAsyncScope();
+var migrationRunner = scope.ServiceProvider.GetRequiredService<MigrationsRunner>();
+await migrationRunner.RunAsync();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
